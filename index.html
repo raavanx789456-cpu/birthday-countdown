@@ -1,40 +1,81 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Birthday Countdown ❤️</title>
-  <style>
-    body{
-      margin:0;
-      background: linear-gradient(135deg,#ff9a9e,#fad0c4);
-      font-family: Arial, sans-serif;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      height:100vh;
-      text-align:center;
-    }
-    .box{
-      background:#fff;
-      padding:25px;
-      border-radius:20px;
-      width:320px;
-      box-shadow:0 15px 40px rgba(0,0,0,.3);
-    }
-    .face{
-      width:120px;
-      height:120px;
-      background:#ffdbac;
-      border-radius:50%;
-      margin:auto;
-      position:relative;
-      animation:bounce 2s infinite;
-    }
-    .eye{
-      width:12px;height:12px;
-      background:#000;border-radius:50%;
-      position:absolute;top:40px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Wifey 💞</title>
+    <style>
+        body { margin: 0; background: #ffebee; font-family: 'Arial', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; text-align: center; }
+        #welcome-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #ff4d6d; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 100; transition: 1s; }
+        .btn { padding: 15px 30px; font-size: 1.5rem; background: white; color: #ff4d6d; border: none; border-radius: 50px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2); font-weight: bold; }
+        #main-content { display: none; }
+        h1 { color: #ff4d6d; font-size: 2.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); }
+        #countdown { display: flex; gap: 15px; justify-content: center; margin-top: 20px; }
+        .time-box { background: #ff4d6d; color: white; padding: 15px; border-radius: 10px; min-width: 60px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .time-box span { display: block; font-size: 2rem; font-weight: bold; }
+        .heart { position: absolute; color: #ff4d6d; font-size: 1.5rem; animation: float 4s infinite linear; opacity: 0; }
+        @keyframes float { 0% { transform: translateY(100vh) rotate(0); opacity: 1; } 100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; } }
+    </style>
+</head>
+<body>
+
+    <div id="welcome-screen">
+        <h1 style="color: white; margin-bottom: 20px;">A Special Surprise for Wifey 💞</h1>
+        <button class="btn" onclick="startSurprise()">Open This ❤️</button>
+    </div>
+
+    <div id="main-content">
+        <h1>Counting Every Second to Your Day...</h1>
+        <div id="countdown">
+            <div class="time-box"><span id="days">00</span>Days</div>
+            <div class="time-box"><span id="hours">00</span>Hrs</div>
+            <div class="time-box"><span id="minutes">00</span>Min</div>
+            <div class="time-box"><span id="seconds">00</span>Sec</div>
+        </div>
+        <p style="margin-top: 30px; font-size: 1.2rem; color: #ff4d6d;">I Love You, Wifey! 💍</p>
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        function startSurprise() {
+            document.getElementById('welcome-screen').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('welcome-screen').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+                document.getElementById('bgMusic').play();
+                createHearts();
+            }, 1000);
+        }
+
+        function createHearts() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.className = 'heart';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 4000);
+            }, 300);
+        }
+
+        const targetDate = new Date("Feb 6, 2026 00:00:00").getTime();
+
+        setInterval(() => {
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+            document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+            document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById('minutes').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById('seconds').innerText = Math.floor((diff % (1000 * 60)) / 1000);
+        }, 1000);
+    </script>
+</body>
+</html>    }
     .eye.left{left:35px;}
     .eye.right{right:35px;}
     .smile{
